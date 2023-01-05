@@ -1,0 +1,29 @@
+-- old
+
+CC = g++ -g -Wall -std=c++14
+exe_file = run
+
+$(exe_file): driver.o game.o
+	$(CC) driver.o game.o -o $(exe_file)
+
+driver.o: driver.cpp
+	$(CC) -c driver.cpp
+
+game.o: game.cpp
+	$(CC) -c game.cpp
+
+clean:
+	rm -rf *.o $(exe_file)
+
+-- new
+
+all: compile link
+
+compile:
+	g++ -IC:\SFML\include -c main.cpp -o main.o
+
+link:
+	g++ -LC:\SFML\lib .\main.o -o run -lmingw32 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-main -mwindows
+
+clean:
+	rm -rf *.o main
